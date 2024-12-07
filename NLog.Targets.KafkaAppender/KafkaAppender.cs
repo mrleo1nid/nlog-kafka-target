@@ -210,8 +210,7 @@ namespace NLog.Targets.KafkaAppender
         protected override void Write(LogEventInfo logEvent)
         {
             var topic = RenderLogEvent(Topic, logEvent);
-            var logMessage = RenderLogEvent(Layout, logEvent);
-
+            var logMessage = RenderLogEvent(Layout, logEvent).Replace(": \" \",", ": \"\",");
             try
             {
                 _producer.Produce(topic, logMessage);
